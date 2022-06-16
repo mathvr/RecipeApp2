@@ -15,7 +15,7 @@ namespace RecipeApp2.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         [AllowNull]
-        public virtual IEnumerable<Recipe> Recipes { get; set; }
+        public IEnumerable<Recipe> Recipes { get; set; }
         [AllowNull]
         public Category Category { get; set; }
     }

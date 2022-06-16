@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Connection String to DB
 builder.Services.AddDbContext<RecipeContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RecipeDB")));
-builder.Services.AddStartupServices();
+//builder.Services.AddStartupServices();
 
 var app = builder.Build();
 
