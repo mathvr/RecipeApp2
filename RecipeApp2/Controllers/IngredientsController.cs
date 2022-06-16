@@ -24,7 +24,7 @@ namespace RecipeApp2.Controllers
 
             var ingredients = await _context.Ingredients
                 .Where(ingredient => ingredient.Name.Contains(name) &&
-                                     ingredient.Name.Contains(name2)).Take(20)
+                                     ingredient.Name.Contains(name2)).Include("Category")
                 .ToListAsync();
 
             if (ingredients == null || ingredients.Count == 0)
@@ -39,10 +39,14 @@ namespace RecipeApp2.Controllers
         [Route("CreateRecipe")]
         public async Task<IActionResult> CreateRecipe(Recipe recipe)
         {
-            await _context.Recipes.AddAsync(recipe);
-           await _context.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                await _context.Recipes.AddAsync(recipe);
+                await _context.SaveChangesAsync();
 
-           return Ok();
+                return Ok();
+            }
+            else return BadRequest();
         }
     }
 }

@@ -49,8 +49,7 @@ namespace RecipeApp.Data.DbInitializer
                 var CategoryAdded = new Category()
                 {
                     Id = int.Parse(splitCleanValues[0]),
-                    Name = splitCleanValues[1].Remove((splitCleanValues[1].Length-1),1),
-                    Ingredients = context.Ingredients.Where(cat => cat.Id.Equals(int.Parse(splitCleanValues[0])))
+                    Name = splitCleanValues[1].Remove((splitCleanValues[1].Length-1),1)
                 };
                 Console.WriteLine(CategoryAdded.Name);
                 context.Categories.Add(CategoryAdded);

@@ -10,7 +10,6 @@ namespace RecipeApp2.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Name { get; set; }
-        [AllowNull]
-        public IEnumerable<Ingredient> Ingredients { get; set; }
+       
     }
 }

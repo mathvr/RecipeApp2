@@ -137,17 +137,12 @@ namespace RecipeApp2.Data.Migrations
             modelBuilder.Entity("RecipeApp2.Entities.Ingredient", b =>
                 {
                     b.HasOne("RecipeApp2.Entities.Category", "Category")
-                        .WithMany("Ingredients")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("RecipeApp2.Entities.Category", b =>
-                {
-                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }
