@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipeApp2.Data;
-using RecipeApp2.Entities;
+using RecipeApp2.Entities.EntitiesDTO;
+using RecipeApp2.Entities.Ingredients;
+using RecipeApp2.Entities.Recipes;
+using RecipeApp2.Services.IngredientServices;
 
 namespace RecipeApp2.Controllers
 {
@@ -11,42 +14,32 @@ namespace RecipeApp2.Controllers
     [ApiController]
     public class IngredientsController : ControllerBase
     {
-        private readonly RecipeContext _context;
+        private readonly IIngredientService _service;
 
-        public IngredientsController(RecipeContext context)
+        public IngredientsController(IIngredientService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
         [Route("SearchByName")]
-        public async Task<IActionResult> SearchIngredientByName(string name, string name2) {
+        public async Task<IEnumerable<IngredientToClientDTO>> SearchIngredientByName(string name, string name2)
+        {
+            var ingredients = _service.SearchIngredientByName(name, name2);
 
-            var ingredients = await _context.Ingredients
-                .Where(ingredient => ingredient.Name.Contains(name) &&
-                                     ingredient.Name.Contains(name2)).Include("Category")
-                .ToListAsync();
+            if (ingredients is null) throw new Exception("Ingredients not found");
 
-            if (ingredients == null || ingredients.Count == 0)
-            {
-                return NotFound("No ingredient by this name");
-            }
-
-            return Ok(ingredients);
+            return await ingredients;
         }
 
         [HttpPost]
-        [Route("CreateRecipe")]
-        public async Task<IActionResult> CreateRecipe(Recipe recipe)
+        [Route("AddIngredient")]
+        public async Task<IActionResult> AddIngredient(IngredientToAddDTO ingredient)
         {
-            if (ModelState.IsValid)
-            {
-                await _context.Recipes.AddAsync(recipe);
-                await _context.SaveChangesAsync();
+            await _service.AddIngredient(ingredient.Name, ingredient.CategoryId);
 
-                return Ok();
-            }
-            else return BadRequest();
+            return Ok("Ingredient added successfully");
         }
+        
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using RecipeApp2.Data;
 using RecipeApp2.Entities;
+using RecipeApp2.Entities.Categories;
+using RecipeApp2.Entities.Ingredients;
 
 namespace RecipeApp.Data.DbInitializer
 {

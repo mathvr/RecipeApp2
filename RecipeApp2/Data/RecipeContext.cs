@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecipeApp2.Entities;
+using RecipeApp2.Entities.Categories;
+using RecipeApp2.Entities.Ingredients;
+using RecipeApp2.Entities.Recipes;
 
 namespace RecipeApp2.Data
 {
